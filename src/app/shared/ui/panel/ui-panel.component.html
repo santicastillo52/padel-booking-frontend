@@ -1,0 +1,9 @@
+<div class="ui-panel" [class.ui-panel--wide]="wide">
+  @if (title) {
+    <h2 class="ui-panel__title">{{ title }}</h2>
+  }
+  @if (subtitle) {
+    <p class="ui-panel__subtitle">{{ subtitle }}</p>
+  }
+  <ng-content />
+</div>

@@ -1,0 +1,83 @@
+@use '../../../../styles/tokens' as *;
+
+.court-detail-page {
+  .detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .court-summary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    img {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: $radius-md;
+      border: 2px solid $black;
+    }
+  }
+
+  .court-summary__info {
+    p {
+      margin: 0 0 0.75rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: $text-muted;
+      margin-bottom: 0.15rem;
+    }
+  }
+}
+
+.court-section {
+  margin-bottom: 1rem;
+  border: 2px solid $black;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: $surface;
+
+  &__header {
+    background: $black;
+    padding: 0;
+
+    .btn-link {
+      color: $line-white;
+      text-decoration: none;
+      width: 100%;
+      text-align: left;
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      border: none;
+      border-left: 4px solid $court-blue;
+      border-radius: 0;
+      background: transparent;
+
+      &:hover {
+        color: $line-white;
+        background: $black-soft;
+      }
+
+      i {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  &__body {
+    padding: 1.25rem;
+  }
+}

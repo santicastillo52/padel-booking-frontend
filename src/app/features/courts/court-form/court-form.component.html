@@ -1,0 +1,60 @@
+<app-ui-panel title="Agregar canchas" [wide]="true">
+    <form [formGroup]="courtForm" (submit)="addCourt()">
+      <div class="form-group">
+        <label for="name">Nombre de la cancha</label>
+        <input type="string" class="form-control" id="name" placeholder="Nombre" formControlName="name" />
+        @if(this.courtForm.get('name')?.invalid && this.courtForm.get('name')?.touched){
+          <div class="input-error">El campo nombre es obligatorio.</div>
+        }
+      </div>
+      <div class="form-group">
+        <label for="wall_type">Tipo de pared</label>
+        <select class="form-control" id="wall_type" formControlName="wall_type">
+          <option value="acrylic">Acrílico</option>
+          <option value="cement">Cemento</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="court_type">Tipo de cancha</label>
+        <select class="form-control" id="court_type" formControlName="court_type">
+          <option value="indoor">Indoor</option>
+          <option value="outdoor">Outdoor</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="court-image">Imagen</label>
+        <input type="file" class="form-control" id="court-image" (change)="onFileSelected($event)" accept="image/*">
+      </div>
+      <app-ui-button type="submit" [fullWidth]="true" [disabled]="courtForm.invalid">Agregar cancha</app-ui-button>
+    </form>
+
+    @if(courtList.length > 0){
+      <hr class="ui-separator" />
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Pared</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(item of courtList; track item.court.name) {
+            <tr>
+              <td>{{ item.court.name }}</td>
+              <td>{{ item.court.wall_type }}</td>
+              <td>{{ item.court.court_type }}</td>
+              <td>
+                <app-ui-button size="sm" variant="danger" (click)="deleteCourt(item.court.name)">Eliminar</app-ui-button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <div class="form-actions">
+        <app-ui-button [fullWidth]="true" (click)="sendCourts()" [disabled]="isSubmitting">{{ messageButton }}</app-ui-button>
+        <app-ui-button variant="danger" [fullWidth]="true" (click)="cancelCourts()" [disabled]="isSubmitting">Cancelar</app-ui-button>
+      </div>
+    }
+  </app-ui-panel>

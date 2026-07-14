@@ -1,0 +1,97 @@
+@if(court){
+<section class="ui-page court-detail-page">
+
+  <div class="detail-actions">
+    @if (!isEditing) {
+      <app-ui-button (click)="isEditing = true">
+        Editar cancha <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+      </app-ui-button>
+    } @else {
+      <app-ui-button variant="danger" (click)="isEditing = false">Cancelar</app-ui-button>
+    }
+  </div>
+
+  <div class="court-summary">
+    <div>
+      @if(court.Images && court.Images.length > 0){
+        <img [src]="court.Images[0].url" [alt]="court.name" />
+      } @else {
+        <img src="assets/files/club1.jpg" [alt]="court.name" />
+      }
+    </div>
+    <div class="court-summary__info">
+      <label>Nombre</label>
+      <p>{{ court.name }}</p>
+      <label>Tipo de cancha</label>
+      <p>{{ court.court_type }}</p>
+      <label>Tipo de pared</label>
+      <p>{{ court.wall_type }}</p>
+      <label>Disponibilidad</label>
+      <p>{{ court.available ? 'Disponible' : 'No disponible' }}</p>
+    </div>
+  </div>
+
+  <div class="court-section">
+    <div class="court-section__header" id="schedulesHeader">
+      <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#schedulesCollapse" aria-expanded="true" aria-controls="schedulesCollapse">
+        <i class="bi bi-calendar3" aria-hidden="true"></i> Horarios de la cancha
+      </button>
+    </div>
+    <div id="schedulesCollapse" class="collapse show" aria-labelledby="schedulesHeader">
+      <div class="court-section__body">
+        <app-courts-schedules-list
+          [courtSchedules]="court.CourtSchedules"
+          [courtId]="court.id"
+          (scheduleDeleted)="getCourt(court.id)">
+        </app-courts-schedules-list>
+      </div>
+    </div>
+  </div>
+
+  @if(isEditing){
+    <div class="court-section">
+      <div class="court-section__header" id="editHeader">
+        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#editCollapse" aria-expanded="false" aria-controls="editCollapse">
+          <i class="bi bi-pencil-fill" aria-hidden="true"></i> Editar datos
+        </button>
+      </div>
+      <div id="editCollapse" class="collapse" aria-labelledby="editHeader">
+        <div class="court-section__body">
+          <app-court-edit [court]="court" (courtUpdated)="getCourt(court.id)"></app-court-edit>
+        </div>
+      </div>
+    </div>
+
+    <div class="court-section">
+      <div class="court-section__header" id="imagesHeader">
+        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#imagesCollapse" aria-expanded="false" aria-controls="imagesCollapse">
+          <i class="bi bi-images" aria-hidden="true"></i> Gestionar imágenes
+        </button>
+      </div>
+      <div id="imagesCollapse" class="collapse" aria-labelledby="imagesHeader">
+        <div class="court-section__body">
+          <app-court-image-edit [court]="court" (imageUpdated)="getCourt(court.id)"></app-court-image-edit>
+        </div>
+      </div>
+    </div>
+
+    <div class="court-section">
+      <div class="court-section__header" id="scheduleFormHeader">
+        <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scheduleFormCollapse" aria-expanded="false" aria-controls="scheduleFormCollapse">
+          <i class="bi bi-plus-circle" aria-hidden="true"></i> Agregar horarios
+        </button>
+      </div>
+      <div id="scheduleFormCollapse" class="collapse" aria-labelledby="scheduleFormHeader">
+        <div class="court-section__body">
+          <app-courts-schedules-form
+            [courtId]="court.id"
+            (schedulesListCreated)="getCourt(court.id)">
+          </app-courts-schedules-form>
+        </div>
+      </div>
+    </div>
+  }
+</section>
+} @else {
+  <app-loading></app-loading>
+}

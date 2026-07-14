@@ -1,0 +1,50 @@
+  @if(court){
+    <app-ui-panel title="Editar cancha" [wide]="true">
+      <form [formGroup]="courtFormEdit" (submit)="saveCourt()" class="edit-court-form">
+        <div class="form-group">
+          <label for="name">Nombre de la cancha</label>
+          <input id="name" class="form-control" formControlName="name" />
+        </div>
+        <div class="form-group">
+          <label for="court_type">Tipo de cancha</label>
+          <select id="court_type" class="form-control" formControlName="court_type">
+            <option value="indoor">Indoor</option>
+            <option value="outdoor">Outdoor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="wall_type">Tipo de pared</label>
+          <select id="wall_type" class="form-control" formControlName="wall_type">
+            <option value="acrylic">Acrílico</option>
+            <option value="cement">Cemento</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="available">Disponibilidad</label>
+          <select id="available" class="form-control" formControlName="available">
+            <option value="true">Disponible</option>
+            <option value="false">No disponible</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <app-ui-button
+            type="submit"
+            variant="success"
+            [fullWidth]="true"
+            [disabled]="courtFormEdit.invalid || isSubmitting"
+          >
+            {{ messageButton }}
+          </app-ui-button>
+          <app-ui-button
+            type="button"
+            variant="danger"
+            [fullWidth]="true"
+            [disabled]="isSubmitting"
+            (click)="deleteCourt()"
+          >
+            {{ messageDeleteButton }}
+          </app-ui-button>
+        </div>
+      </form>
+    </app-ui-panel>
+  }

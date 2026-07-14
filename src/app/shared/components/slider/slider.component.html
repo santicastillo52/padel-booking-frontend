@@ -1,0 +1,73 @@
+<div class="slider">
+  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      <button 
+        type="button" 
+        data-bs-target="#carouselExampleDark" 
+        data-bs-slide-to="0" 
+        class="active" 
+        aria-current="true" 
+        aria-label="Welcome Slide">
+      </button>
+      @for(club of clubs; track club; let i = $index) {
+        <button 
+          type="button" 
+          data-bs-target="#carouselExampleDark" 
+          [attr.data-bs-slide-to]="i + 1"
+          [attr.aria-label]="'Slide ' + club.name">
+        </button>
+      }
+    </div>
+
+    <!-- Contenido del Carousel -->
+    <div class="carousel-inner">
+      <!-- Slide de bienvenida -->
+      <div class="carousel-item active" data-bs-interval="5000">
+        <img 
+          [src]="welcomeImage" 
+          class="d-block w-100 tamanio-imagen" 
+          [alt]="'Imagen de bienvenida'"
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Bienvenido</h2>
+        </div>
+      </div>
+
+      <!-- Slides de clubs -->
+      @for(club of clubs; track club) {
+        <div class="carousel-item" data-bs-interval="5000">
+          <img 
+            [src]="club.Images[0] ? club.Images[0].url : imageDefault"
+            class="d-block w-100 tamanio-imagen" 
+            [alt]="'Imagen de ' + club.name"
+          />
+          <div class="carousel-caption d-none d-md-block text-center">
+            <h2>{{ club.name }}</h2>
+            <button class="ui-btn ui-btn--primary ui-btn--sm" (click)="getClub(club.id)">Ver detalles</button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Controles de navegación -->
+    <button 
+      class="carousel-control-prev" 
+      type="button" 
+      data-bs-target="#carouselExampleDark" 
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button 
+      class="carousel-control-next" 
+      type="button" 
+      data-bs-target="#carouselExampleDark" 
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,171 @@
+<section class="ui-page bookings-page">
+  <app-ui-page-header
+    title="Buscar cancha"
+    subtitle="Elegí día, horario y club para encontrar tu próximo turno"
+  />
+
+  <div class="bookings-search">
+    <div class="bookings-search__intro">
+      <div class="bookings-search__intro-icon" aria-hidden="true">
+        <i class="bi bi-calendar2-check"></i>
+      </div>
+      <div>
+        <h2>Filtrá tu partido ideal</h2>
+        <p>Completá los filtros que necesites. Podés dejar campos vacíos para ver más opciones.</p>
+      </div>
+    </div>
+
+    <div class="bookings-search__body">
+      <section class="filter-group" aria-labelledby="filter-when">
+        <h3 id="filter-when" class="filter-group__title">
+          <i class="bi bi-clock" aria-hidden="true"></i>
+          ¿Cuándo querés jugar?
+        </h3>
+        <div class="filter-group__grid">
+          <div class="form-group">
+            <label for="day-of-week">Día</label>
+            <select
+              id="day-of-week"
+              [(ngModel)]="filters.day_of_week"
+              class="form-control"
+            >
+              <option value="">Cualquier día</option>
+              <option value="monday">Lunes</option>
+              <option value="tuesday">Martes</option>
+              <option value="wednesday">Miércoles</option>
+              <option value="thursday">Jueves</option>
+              <option value="friday">Viernes</option>
+              <option value="saturday">Sábado</option>
+              <option value="sunday">Domingo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="start-time">Desde</label>
+            <input
+              type="time"
+              id="start-time"
+              [(ngModel)]="filters.start_time"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="end-time">Hasta</label>
+            <input
+              type="time"
+              id="end-time"
+              [(ngModel)]="filters.end_time"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="filter-group" aria-labelledby="filter-where">
+        <h3 id="filter-where" class="filter-group__title">
+          <i class="bi bi-geo-alt" aria-hidden="true"></i>
+          ¿Dónde?
+        </h3>
+        <div class="filter-group__grid filter-group__grid--single">
+          <div class="form-group">
+            <label for="club-id">Club</label>
+            <select
+              id="club-id"
+              [(ngModel)]="filters.clubId"
+              class="form-control"
+            >
+              <option value="">Todos los clubes</option>
+              @for (club of clubs; track club.id) {
+                <option [value]="club.id">{{ club.name }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="filter-group" aria-labelledby="filter-court">
+        <h3 id="filter-court" class="filter-group__title">
+          <i class="bi bi-grid-3x3" aria-hidden="true"></i>
+          Preferencias de cancha
+        </h3>
+        <div class="filter-group__grid filter-group__grid--two">
+          <div class="form-group">
+            <label for="court-type">Tipo</label>
+            <select
+              id="court-type"
+              [(ngModel)]="filters.court_type"
+              class="form-control"
+            >
+              <option value="">Indoor u outdoor</option>
+              <option value="indoor">Indoor</option>
+              <option value="outdoor">Outdoor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="wall-type">Pared</label>
+            <select
+              id="wall-type"
+              [(ngModel)]="filters.wall_type"
+              class="form-control"
+            >
+              <option value="">Cualquier pared</option>
+              <option value="acrylic">Acrílico</option>
+              <option value="cement">Cemento</option>
+            </select>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="bookings-search__actions">
+      @if (activeFiltersCount > 0) {
+        <span class="bookings-search__chips">
+          <app-ui-badge variant="blue">{{ activeFiltersCount }} filtro{{ activeFiltersCount === 1 ? '' : 's' }} activo{{ activeFiltersCount === 1 ? '' : 's' }}</app-ui-badge>
+        </span>
+      }
+      <div class="bookings-search__buttons">
+        <app-ui-button
+          variant="ghost"
+          [disabled]="isSubmitting || activeFiltersCount === 0"
+          (click)="clearFilters()"
+        >
+          <i class="bi bi-x-circle" aria-hidden="true"></i>
+          Limpiar
+        </app-ui-button>
+        <app-ui-button
+          [disabled]="isSubmitting"
+          (click)="searchCourts()"
+        >
+          <i class="bi bi-search" aria-hidden="true"></i>
+          {{ messageButton }}
+        </app-ui-button>
+      </div>
+    </div>
+  </div>
+
+  @if (hasSearched) {
+    <div class="bookings-results">
+      <div class="bookings-results__header">
+        <h2>Resultados</h2>
+        @if (courts.length > 0) {
+          <p>{{ courtsCountLabel }}</p>
+        }
+      </div>
+
+      @if (courts.length === 0) {
+        <app-ui-empty-state icon="bi-emoji-frown">
+          No encontramos canchas con esos filtros. Probá ampliar el rango o limpiar algún filtro.
+        </app-ui-empty-state>
+      } @else {
+        <app-bookings-list
+          [courts]="courts"
+          [reservingScheduleId]="reservingScheduleId"
+          (sendReserveCourt)="reserveCourt($event)"
+        />
+      }
+    </div>
+  } @else {
+    <app-ui-empty-state icon="bi-search">
+      Usá los filtros y tocá “Buscar canchas” para ver turnos disponibles.
+    </app-ui-empty-state>
+  }
+</section>

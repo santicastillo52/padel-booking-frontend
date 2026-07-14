@@ -1,0 +1,41 @@
+@use 'tokens' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: $text;
+  background-color: $bg-page;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $text;
+  line-height: 1.2;
+}
+
+a {
+  color: $court-blue;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $court-blue-light;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

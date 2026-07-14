@@ -1,0 +1,138 @@
+@if (user) {
+  <section class="ui-page profile-page">
+    <app-ui-page-header
+      title="Mi perfil"
+      subtitle="Revisá y actualizá tu información de juego"
+    />
+
+    <div class="profile-shell">
+      <header class="profile-hero">
+        <div class="profile-hero__avatar" aria-hidden="true">
+          {{ userInitials }}
+        </div>
+        <div class="profile-hero__copy">
+          <h2>{{ user.name }} {{ user.last_name }}</h2>
+          <p>{{ user.email }}</p>
+          <div class="profile-hero__badges">
+            <app-ui-badge variant="outline" class="profile-hero__badge-position">{{ user.position | position }}</app-ui-badge>
+            <app-ui-badge variant="dark">Cat. {{ user.level }}</app-ui-badge>
+            <app-ui-badge variant="outline">{{ user.gender | gender }}</app-ui-badge>
+          </div>
+        </div>
+        <div class="profile-hero__action">
+          <app-ui-button
+            [variant]="isEditing ? 'danger' : 'primary'"
+            [disabled]="isSubmitting"
+            (click)="toggleEdit()"
+          >
+            <i class="bi" [class.bi-pencil-fill]="!isEditing" [class.bi-x-lg]="isEditing" aria-hidden="true"></i>
+            {{ isEditing ? 'Cancelar' : 'Editar perfil' }}
+          </app-ui-button>
+        </div>
+      </header>
+
+      <form class="profile-body" [formGroup]="userFormEdit" (ngSubmit)="saveUser()">
+        <section class="profile-section" aria-labelledby="profile-personal">
+          <h3 id="profile-personal" class="profile-section__title">
+            <i class="bi bi-person" aria-hidden="true"></i>
+            Datos personales
+          </h3>
+
+          <div class="profile-fields">
+            <div class="profile-field">
+              <span class="profile-field__label">Nombre</span>
+              @if (!isEditing) {
+                <span class="profile-field__value">{{ user.name }}</span>
+              } @else {
+                <input class="form-control" formControlName="name" id="name" />
+              }
+            </div>
+
+            <div class="profile-field">
+              <span class="profile-field__label">Apellido</span>
+              @if (!isEditing) {
+                <span class="profile-field__value">{{ user.last_name }}</span>
+              } @else {
+                <input class="form-control" formControlName="last_name" id="last_name" />
+              }
+            </div>
+
+            <div class="profile-field profile-field--full">
+              <span class="profile-field__label">Email</span>
+              <span class="profile-field__value profile-field__value--muted">
+                <i class="bi bi-envelope" aria-hidden="true"></i>
+                {{ user.email }}
+              </span>
+              @if (isEditing) {
+                <small class="profile-field__hint">El email no se puede modificar desde acá.</small>
+              }
+            </div>
+
+            <div class="profile-field">
+              <span class="profile-field__label">Género</span>
+              <span class="profile-field__value">{{ user.gender | gender }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-section" aria-labelledby="profile-play">
+          <h3 id="profile-play" class="profile-section__title">
+            <i class="bi bi-trophy" aria-hidden="true"></i>
+            Perfil de juego
+          </h3>
+
+          <div class="profile-fields">
+            <div class="profile-field">
+              <span class="profile-field__label">Posición</span>
+              @if (!isEditing) {
+                <span class="profile-field__value">{{ user.position | position }}</span>
+              } @else {
+                <select class="form-control" formControlName="position" id="position">
+                  <option value="forehand">Drive</option>
+                  <option value="backhand">Revés</option>
+                  <option value="both">Drive-Revés</option>
+                </select>
+              }
+            </div>
+
+            <div class="profile-field">
+              <span class="profile-field__label">Categoría</span>
+              @if (!isEditing) {
+                <span class="profile-field__value">{{ user.level }}</span>
+              } @else {
+                <select class="form-control" formControlName="level" id="level">
+                  @for (n of [1, 2, 3, 4, 5, 6, 7, 8]; track n) {
+                    <option [value]="n">{{ n }}</option>
+                  }
+                </select>
+              }
+            </div>
+          </div>
+        </section>
+
+        @if (isEditing) {
+          <div class="profile-footer">
+            <app-ui-button
+              type="button"
+              variant="ghost"
+              [disabled]="isSubmitting"
+              (click)="toggleEdit()"
+            >
+              Cancelar
+            </app-ui-button>
+            <app-ui-button
+              type="submit"
+              variant="success"
+              [disabled]="userFormEdit.invalid || isSubmitting"
+            >
+              <i class="bi bi-check2" aria-hidden="true"></i>
+              {{ messageButton }}
+            </app-ui-button>
+          </div>
+        }
+      </form>
+    </div>
+  </section>
+} @else {
+  <app-loading></app-loading>
+}

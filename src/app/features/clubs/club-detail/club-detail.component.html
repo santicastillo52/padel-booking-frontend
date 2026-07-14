@@ -1,0 +1,56 @@
+<section class="ui-page club-detail-page">
+  @if(club){
+    <app-ui-card [title]="club.name" [hoverable]="false" class="club-detail-card">
+      <div card-media>
+        @if(club.Images && club.Images.length > 0){
+          <img [src]="club.Images[0].url" alt="clubImagen" />
+        } @else {
+          <img src="assets/files/club1.jpg" alt="clubImagen" />
+        }
+      </div>
+      <p><strong>Teléfono:</strong> {{ club.phone }}</p>
+      <p><strong>Ubicación:</strong> {{ club.address }}</p>
+      <app-ui-badge variant="blue">{{ club.Courts.length }} canchas</app-ui-badge>
+      <ul class="ui-social-links">
+        <li>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <i class="bi bi-twitter-x"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <i class="bi bi-youtube"></i>
+          </a>
+        </li>
+      </ul>
+    </app-ui-card>
+
+    <app-ui-page-header title="Canchas del club" subtitle="Seleccioná una cancha para ver más detalles" />
+
+    <div class="ui-grid-cards">
+      @for(court of club.Courts; track court){
+        <app-ui-card [title]="court.name">
+          <div card-media>
+            @if(court.Images && court.Images.length > 0){
+              <img [src]="court.Images[0].url" [alt]="court.name" />
+            } @else {
+              <img src="assets/files/club2.jpg" [alt]="court.name" />
+            }
+          </div>
+          <p>{{ court.court_type | courtType }}</p>
+          <p>{{ court.wall_type | wallType }}</p>
+        </app-ui-card>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,41 @@
+<header class="header-container">
+  <nav class="nav-container">
+    <a routerLink="/" class="home-icon">
+      <img
+        src="assets/files/padel-logo.png"
+        alt="logo-padel"
+        class="icon-logo"
+      />
+    </a>
+
+   <!-- agregar if user y mejorar logica-->
+    @if( authCheked && isLoggedIn && user?.role === 'client'){
+      
+    <ul class="nav-link-client">
+      
+      <li><a routerLink="/landing" class="link" routerLinkActive="active">Inicio</a></li>
+      <li><a routerLink="/bookings" class="link" routerLinkActive="active">Buscar Cancha</a></li>
+      <li><a routerLink="/courts/reservations" class="link" routerLinkActive="active">Mis Reservas</a></li>
+      <li><a routerLink="/users/profile" class="link" routerLinkActive="active">Perfil</a></li>
+      <li><a routerLink="/clubs" class="link" routerLinkActive="active">Clubes</a></li>
+
+    </ul>
+    } @else if(authCheked && isLoggedIn && user?.role === 'admin'){
+    <ul class="nav-link-owner">
+      <li><a routerLink="/courts/management" class="link" routerLinkActive="active">Gestionar Canchas</a></li>
+      <li><a routerLink="/courts/reservations" class="link" routerLinkActive="active">Reservas</a></li>
+      <li><a routerLink="/clubs/detail" class="link" routerLinkActive="active">Perfil</a></li>
+
+    </ul>
+    }
+  
+   <ul class="nav-link-login">
+      @if(isLoggedIn === false) {
+        <li><a routerLink="/auth/login" class="link" routerLinkActive="active">Iniciar Sesión</a></li>
+        <li><a routerLink="/auth/register" class="link" routerLinkActive="active">Registrarse</a></li>
+      } @else if (isLoggedIn === true) {
+        <li><app-ui-button variant="danger" size="sm" (click)="logout()">Cerrar sesión</app-ui-button></li>
+      }
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,46 @@
+@if (courts.length > 0) {
+  <div class="ui-grid-cards">
+    @for (court of courts; track court.id) {
+      @for (schedule of court.CourtSchedules; track schedule.id) {
+        <app-ui-card [title]="court.name">
+          <div card-media>
+            @if (court.Images && court.Images.length > 0) {
+              <img [src]="court.Images[0].url" [alt]="court.name" />
+            } @else {
+              <img src="assets/files/club2.jpg" [alt]="court.name" />
+            }
+          </div>
+          <div class="ui-info-row">
+            <span class="ui-info-row__label">Tipo:</span>
+            <span class="ui-info-row__value">{{ court.court_type | courtType }}</span>
+          </div>
+          <div class="ui-info-row">
+            <span class="ui-info-row__label">Pared:</span>
+            <span class="ui-info-row__value">{{ court.wall_type | wallType }}</span>
+          </div>
+          <div class="ui-info-row">
+            <span class="ui-info-row__label">Club:</span>
+            <span class="ui-info-row__value">{{ court.Club.name }}</span>
+          </div>
+          <div class="ui-info-row ui-info-row--highlight">
+            <span class="ui-info-row__label">Fecha:</span>
+            <span class="ui-info-row__value">{{ schedule.day_of_week | dayName }} - {{ schedule.date }}</span>
+          </div>
+          <div class="ui-info-row ui-info-row--highlight">
+            <span class="ui-info-row__label">Horario:</span>
+            <span class="ui-info-row__value">{{ schedule.start_time }} - {{ schedule.end_time }}</span>
+          </div>
+          <div card-footer>
+            <app-ui-button
+              [fullWidth]="true"
+              [disabled]="reservingScheduleId !== null"
+              (click)="reserveCourt(court, schedule)"
+            >
+              {{ reservingScheduleId === schedule.id ? 'Reservando...' : 'Reservar' }}
+            </app-ui-button>
+          </div>
+        </app-ui-card>
+      }
+    }
+  </div>
+}

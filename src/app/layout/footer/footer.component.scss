@@ -1,0 +1,100 @@
+@use '../../../styles/tokens' as *;
+
+$footer-bg: $black;
+$footer-text: rgba(255, 255, 255, 0.9);
+$footer-accent: $court-blue-light;
+
+#footer {
+  background-color: $footer-bg;
+  padding: 1.5rem 1.25rem;
+  border-top: 3px solid $court-blue;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.link {
+  h3 {
+    color: $footer-text;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.5rem 0;
+  }
+}
+
+#ul-footer,
+.ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+#li-footer {
+  color: $footer-text;
+  padding: 0;
+  font-size: 0.875rem;
+  list-style: none;
+
+  a {
+    color: $footer-text;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $footer-accent;
+    }
+  }
+}
+
+.ul #li-footer a {
+  padding: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link i {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  #footer {
+    padding: 1.75rem 2rem;
+  }
+
+  .footer-container {
+    gap: 2.5rem;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  #footer {
+    padding: 1rem max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-right));
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  #ul-footer,
+  .ul {
+    justify-content: center;
+  }
+}
