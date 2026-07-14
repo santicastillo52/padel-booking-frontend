@@ -1,0 +1,138 @@
+@use '../../../styles/tokens' as *;
+
+$header-bg: $black;
+$header-border: rgba(255, 255, 255, 0.1);
+$court-blue: $court-blue;
+$court-blue-light: $court-blue-light;
+$header-text: #ffffff;
+
+header.header-container {
+  background-color: $header-bg;
+  width: 100%;
+  border-bottom: 3px solid $court-blue;
+  box-shadow: 0 4px 20px rgba(17, 17, 17, 0.35);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.home-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon-logo {
+  width: 90px;
+  height: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.nav-link-login,
+.nav-link-client,
+.nav-link-owner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+.link {
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: $header-text;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    color: $header-text;
+    background-color: $court-blue;
+  }
+}
+
+.active {
+  color: $header-text;
+  font-weight: 600;
+  background-color: $court-blue;
+}
+
+.nav-link-login {
+  .link {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-container {
+    padding: 1rem 2rem;
+    justify-content: space-between;
+  }
+
+  .icon-logo {
+    width: 100px;
+  }
+
+  .link {
+    padding: 0.5rem 1rem;
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav-container {
+    padding: 0.6rem max(1rem, env(safe-area-inset-left)) 0.6rem max(1rem, env(safe-area-inset-right));
+    justify-content: space-between;
+  }
+
+  .icon-logo {
+    width: 72px;
+  }
+
+  .nav-link-client,
+  .nav-link-owner {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 0.15rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid $header-border;
+  }
+
+  .nav-link-login {
+    order: 2;
+  }
+
+  .link {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 374px) {
+  .link {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.4rem;
+  }
+
+  .icon-logo {
+    width: 64px;
+  }
+}

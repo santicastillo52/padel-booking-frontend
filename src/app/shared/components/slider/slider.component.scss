@@ -1,0 +1,73 @@
+@use '../../../../styles/tokens' as *;
+
+.slider {
+  padding: 0;
+  border-radius: 0 0 $radius-md $radius-md;
+}
+
+.tamanio-imagen {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-caption {
+  background: linear-gradient(to top, rgba($black, 0.92) 0%, transparent 100%);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2rem 1.5rem 1.25rem;
+  text-align: left;
+
+  h2 {
+    color: $line-white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.45);
+  border: none;
+  margin: 0 4px;
+
+  &.active {
+    background-color: $court-blue-light;
+    width: 24px;
+    border-radius: 4px;
+  }
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+@media (min-width: 768px) {
+  .tamanio-imagen {
+    height: 520px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tamanio-imagen {
+    height: 600px;
+  }
+}
+
+@media (max-width: 767px) {
+  .tamanio-imagen {
+    height: 220px;
+    min-height: 180px;
+  }
+
+  .carousel-caption {
+    display: block !important;
+    padding: 1.25rem 1rem 0.75rem;
+  }
+}

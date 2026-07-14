@@ -1,0 +1,91 @@
+<div class="landing">
+
+  <section class="landing__hero">
+    <div class="landing__hero-inner">
+      <div class="landing__hero-copy">
+        <app-ui-badge variant="dark">
+          <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+          Reservas en segundos
+        </app-ui-badge>
+        <h1>Tu cancha de pádel,<br />lista cuando vos estés</h1>
+        <p class="landing__subtitle">
+          Encontrá clubes cerca tuyo, elegí horario y confirmá tu partido sin llamadas ni esperas.
+        </p>
+        <div class="landing__actions">
+          <app-ui-button (click)="redirigir()">
+            Reservar ahora
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </app-ui-button>
+          <app-ui-button variant="ghost" routerLink="/clubs">Explorar clubes</app-ui-button>
+        </div>
+      </div>
+
+      <div class="landing__hero-visual" aria-hidden="true">
+        <div class="landing__hero-card landing__hero-card--main">
+          <i class="bi bi-calendar-check"></i>
+          <span>Turno confirmado</span>
+          <strong>Hoy · 19:00 hs</strong>
+        </div>
+        <div class="landing__hero-card landing__hero-card--float">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>3 clubes cerca</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing__steps" aria-labelledby="steps-title">
+    <div class="landing__section-header">
+      <h2 id="steps-title">¿Cómo funciona?</h2>
+      <p>Tres pasos y ya estás en la cancha</p>
+    </div>
+
+    <div class="landing__steps-grid">
+      <article class="landing__step">
+        <div class="landing__step-icon">
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </div>
+        <h3>Elegí tu club</h3>
+        <p>Explorá clubes, ubicaciones y canchas disponibles en tu zona.</p>
+      </article>
+
+      <article class="landing__step">
+        <div class="landing__step-icon">
+          <i class="bi bi-clock-history" aria-hidden="true"></i>
+        </div>
+        <h3>Seleccioná horario</h3>
+        <p>Filtrá por fecha y hora para encontrar el turno ideal para tu partido.</p>
+      </article>
+
+      <article class="landing__step">
+        <div class="landing__step-icon">
+          <i class="bi bi-check2-circle" aria-hidden="true"></i>
+        </div>
+        <h3>Confirmá y jugá</h3>
+        <p>Reservá al instante y recibí la confirmación en tu perfil.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="landing__featured" aria-labelledby="featured-title">
+    <div class="landing__section-header">
+      <h2 id="featured-title">Clubes destacados</h2>
+      <p>Descubrí dónde jugar tu próximo partido</p>
+    </div>
+
+    <div class="landing__carousel">
+      <app-slider></app-slider>
+    </div>
+  </section>
+
+  <section class="landing__cta">
+    <div class="landing__cta-inner">
+      <div class="landing__cta-copy">
+        <h2>¿Listo para salir a la cancha?</h2>
+        <p>Empezá ahora y reservá tu próximo turno en minutos.</p>
+      </div>
+      <app-ui-button variant="primary" (click)="redirigir()">Empezar a reservar</app-ui-button>
+    </div>
+  </section>
+
+</div>

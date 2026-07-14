@@ -1,0 +1,15 @@
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep .ui-panel {
+  max-width: 100%;
+}

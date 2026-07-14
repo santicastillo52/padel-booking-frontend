@@ -1,0 +1,439 @@
+@use 'tokens' as *;
+
+// ── Botones (ui-btn + override Bootstrap) ─────────────────────────────────────
+
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform $transition-base, box-shadow $transition-base,
+    background-color $transition-fast, color $transition-fast, border-color $transition-fast;
+
+  &:hover:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled):not([aria-disabled='true']) {
+    transform: translateY(0);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.ui-btn,
+.btn {
+  @include btn-base;
+}
+
+.ui-btn--sm,
+.btn-sm {
+  min-height: 36px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.875rem;
+}
+
+.ui-btn--lg {
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+}
+
+.ui-btn--full,
+.ui-btn--block {
+  width: 100%;
+}
+
+.ui-btn--primary,
+.btn-primary {
+  color: $line-white;
+  background: $court-blue;
+  border-color: $court-blue;
+  box-shadow: 0 4px 14px rgba(26, 82, 212, 0.35);
+
+  &:hover:not(:disabled) {
+    background: $court-blue-light;
+    border-color: $court-blue-light;
+    color: $line-white;
+    box-shadow: 0 6px 20px rgba(45, 107, 255, 0.4);
+  }
+}
+
+.ui-btn--secondary,
+.btn-secondary {
+  color: $text;
+  background: $surface;
+  border-color: $black;
+
+  &:hover:not(:disabled) {
+    background: $black;
+    color: $line-white;
+  }
+}
+
+.ui-btn--ghost {
+  color: $court-blue-dark;
+  background: transparent;
+  border-color: rgba(26, 82, 212, 0.35);
+
+  &:hover:not(:disabled) {
+    background: rgba(26, 82, 212, 0.08);
+    border-color: $court-blue;
+  }
+}
+
+.ui-btn--danger,
+.btn-danger {
+  color: $line-white;
+  background: $danger;
+  border-color: $danger;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+
+  &:hover:not(:disabled) {
+    background: $danger-dark;
+    border-color: $danger-dark;
+    color: $line-white;
+  }
+}
+
+.ui-btn--success,
+.btn-success {
+  color: $line-white;
+  background: $success;
+  border-color: $success;
+
+  &:hover:not(:disabled) {
+    background: darken($success, 8%);
+    border-color: darken($success, 8%);
+    color: $line-white;
+  }
+}
+
+.ui-btn--outline {
+  color: $court-blue;
+  background: transparent;
+  border-color: $court-blue;
+
+  &:hover:not(:disabled) {
+    background: $court-blue;
+    color: $line-white;
+  }
+}
+
+// ── Formularios ───────────────────────────────────────────────────────────────
+
+.form-group,
+.ui-form-field {
+  margin-bottom: 1rem;
+}
+
+.form-group label,
+.ui-form-field__label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $text;
+}
+
+.form-control,
+.ui-input,
+.ui-select {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  color: $text;
+  background: $surface;
+  border: 2px solid rgba(17, 17, 17, 0.15);
+  border-radius: $radius-sm;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $court-blue;
+    box-shadow: 0 0 0 3px rgba(26, 82, 212, 0.2);
+  }
+
+  &:disabled {
+    background: rgba(17, 17, 17, 0.04);
+    cursor: not-allowed;
+  }
+}
+
+.input-error,
+.ui-form-error {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: $danger;
+}
+
+// ── Cards ─────────────────────────────────────────────────────────────────────
+
+.ui-card {
+  background: $surface;
+  border: 2px solid $black;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &--hoverable {
+    transition: transform $transition-base, box-shadow $transition-base, border-color $transition-base;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: $shadow-md;
+      border-color: $court-blue;
+    }
+  }
+
+  &--clickable {
+    cursor: pointer;
+  }
+
+  &__media {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: $bg-page;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .ui-card--hoverable:hover & img {
+      transform: scale(1.04);
+    }
+  }
+
+  &__body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid $court-blue;
+  }
+
+  &__footer {
+    padding: 0 1.25rem 1.25rem;
+    margin-top: auto;
+
+    &:empty {
+      display: none;
+      padding: 0;
+    }
+  }
+
+  &__media:empty {
+    display: none;
+  }
+}
+
+// ── Badge ─────────────────────────────────────────────────────────────────────
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 999px;
+
+  &--blue {
+    color: $court-blue-dark;
+    background: rgba(26, 82, 212, 0.12);
+    border: 1px solid rgba(26, 82, 212, 0.25);
+  }
+
+  &--dark {
+    color: $line-white;
+    background: $black;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  &--outline {
+    color: $text;
+    background: $surface;
+    border: 1px solid rgba(17, 17, 17, 0.2);
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+
+.ui-empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  color: $text-muted;
+  background: $surface;
+  border: 2px dashed rgba(17, 17, 17, 0.15);
+  border-radius: $radius-md;
+
+  i {
+    display: block;
+    font-size: 2rem;
+    color: $court-blue;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+}
+
+// ── Tablas ────────────────────────────────────────────────────────────────────
+
+.table {
+  --bs-table-bg: #{$surface};
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border: 2px solid $black;
+  border-radius: $radius-sm;
+  overflow: hidden;
+
+  thead th {
+    background: $black;
+    color: $line-white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    border: none;
+  }
+
+  tbody td {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(17, 17, 17, 0.08);
+    vertical-align: middle;
+  }
+
+  tbody tr:hover {
+    background: rgba(26, 82, 212, 0.04);
+  }
+}
+
+// ── Info rows (bookings cards) ────────────────────────────────────────────────
+
+.ui-info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  background: $bg-page;
+  border-radius: $radius-sm;
+  border-left: 3px solid $court-blue;
+
+  &__label {
+    font-weight: 600;
+    color: $text-muted;
+    font-size: 0.85rem;
+    min-width: 60px;
+  }
+
+  &__value {
+    color: $text;
+    font-size: 0.9rem;
+  }
+
+  &--highlight {
+    background: rgba(26, 82, 212, 0.08);
+    border-left-color: $court-blue-dark;
+  }
+}
+
+// ── Loading spinner ───────────────────────────────────────────────────────────
+
+.ui-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid rgba(26, 82, 212, 0.2);
+  border-top-color: $court-blue;
+  border-radius: 50%;
+  animation: ui-spin 0.7s linear infinite;
+}
+
+@keyframes ui-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ui-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+}
+
+// ── Filter bar ────────────────────────────────────────────────────────────────
+
+.ui-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+// ── Social links ──────────────────────────────────────────────────────────────
+
+.ui-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: $line-white;
+    background: $black;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: background $transition-fast, transform $transition-fast;
+
+    &:hover {
+      background: $court-blue;
+      color: $line-white;
+      transform: translateY(-2px);
+    }
+
+    i {
+      font-size: 1.1rem;
+    }
+  }
+}

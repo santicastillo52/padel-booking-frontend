@@ -1,0 +1,509 @@
+@use '../../../../styles/tokens' as *;
+
+.landing {
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  box-sizing: border-box;
+}
+
+// ── Hero ──────────────────────────────────────────────────────────────────────
+
+.landing__hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-lg;
+  background:
+    linear-gradient(120deg, rgba(17, 17, 17, 0.88) 0%, rgba(18, 56, 154, 0.82) 55%, rgba(26, 82, 212, 0.78) 100%),
+    url('/assets/files/court-hero.png') center / cover no-repeat;
+  box-shadow: $shadow-md;
+  margin-bottom: 3rem;
+  border: 2px solid $black;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 48px,
+      rgba(255, 255, 255, 0.03) 48px,
+      rgba(255, 255, 255, 0.03) 49px
+    );
+    pointer-events: none;
+  }
+}
+
+.landing__hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 2.5rem 1.75rem;
+  align-items: center;
+}
+
+.landing__badge,
+.landing__hero-copy app-ui-badge {
+  margin-bottom: 1.25rem;
+}
+
+.landing__hero-copy {
+  h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(1.85rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: $line-white;
+  }
+}
+
+.landing__subtitle {
+  margin: 0 0 1.75rem;
+  max-width: 42ch;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  line-height: 1.65;
+  color: $text-on-dark;
+}
+
+.landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  ::ng-deep .ui-btn--primary {
+    color: $black;
+    background: $line-white;
+    border-color: $line-white;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+
+    &:hover:not(:disabled) {
+      background: $court-blue-light;
+      border-color: $court-blue-light;
+      color: $line-white;
+    }
+  }
+
+  ::ng-deep .ui-btn--ghost {
+    color: $line-white;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.55);
+
+    &:hover:not(:disabled) {
+      background: $black;
+      border-color: $black;
+      color: $line-white;
+    }
+  }
+}
+
+.landing__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.landing__btn--primary {
+  color: $black;
+  background: $line-white;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    background: $court-blue-light;
+    color: $line-white;
+    box-shadow: 0 8px 24px rgba(26, 82, 212, 0.45);
+  }
+}
+
+.landing__btn--ghost {
+  color: $line-white;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+
+  &:hover {
+    background: $black;
+    border-color: $black;
+    color: $line-white;
+  }
+}
+
+.landing__btn--light {
+  color: $line-white;
+  background: $court-blue;
+  box-shadow: 0 4px 16px rgba(26, 82, 212, 0.4);
+  white-space: nowrap;
+
+  &:hover {
+    background: $court-blue-light;
+    box-shadow: 0 8px 24px rgba(45, 107, 255, 0.5);
+  }
+}
+
+// Hero decorative cards
+.landing__hero-visual {
+  display: none;
+  position: relative;
+  min-height: 220px;
+}
+
+.landing__hero-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.1rem 1.25rem;
+  background: rgba(17, 17, 17, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  backdrop-filter: blur(8px);
+
+  i {
+    font-size: 1.4rem;
+    color: $court-blue-light;
+    margin-bottom: 0.25rem;
+  }
+
+  span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  strong {
+    font-size: 1.05rem;
+    color: $line-white;
+  }
+}
+
+.landing__hero-card--main {
+  top: 10%;
+  left: 10%;
+  animation: float 5s ease-in-out infinite;
+}
+
+.landing__hero-card--float {
+  bottom: 8%;
+  right: 5%;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.6rem;
+  animation: float 5s ease-in-out 1.2s infinite;
+
+  i {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+
+  span {
+    text-transform: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $line-white;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+// ── Section headers ───────────────────────────────────────────────────────────
+
+.landing__section-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: $text;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: $text-muted;
+  }
+}
+
+// ── Steps ─────────────────────────────────────────────────────────────────────
+
+.landing__steps {
+  margin-bottom: 3.5rem;
+}
+
+.landing__steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.landing__step {
+  padding: 1.75rem 1.5rem;
+  background: $surface;
+  border: 2px solid $black;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-md;
+    border-color: $court-blue;
+  }
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: $text;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: $text-muted;
+  }
+}
+
+.landing__step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: $court-blue;
+  color: $line-white;
+  font-size: 1.35rem;
+  transition: background 0.2s ease;
+
+  .landing__step:hover & {
+    background: $black;
+  }
+}
+
+// ── Featured carousel ───────────────────────────────────────────────────────────
+
+.landing__featured {
+  margin-bottom: 3rem;
+}
+
+.landing__carousel {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  border: 2px solid $black;
+
+  ::ng-deep {
+    .slider {
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .tamanio-imagen {
+      height: 280px;
+    }
+
+    .carousel-caption {
+      background: linear-gradient(to top, rgba(17, 17, 17, 0.92) 0%, transparent 100%);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 2rem 1.5rem 1.25rem;
+      text-align: left;
+
+      h2 {
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      .btn-primary {
+        background: $court-blue;
+        border: 2px solid $line-white;
+        border-radius: 10px;
+        padding: 0.5rem 1.25rem;
+        font-weight: 600;
+        color: $line-white;
+        transition: background-color 0.15s ease, color 0.15s ease;
+
+        &:hover {
+          background: $line-white;
+          color: $black;
+        }
+      }
+    }
+
+    .carousel-indicators [data-bs-target] {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.45);
+      border: none;
+      margin: 0 4px;
+
+      &.active {
+        background-color: $court-blue-light;
+        width: 24px;
+        border-radius: 4px;
+      }
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: invert(1);
+    }
+  }
+}
+
+// ── Bottom CTA ────────────────────────────────────────────────────────────────
+
+.landing__cta {
+  border-radius: $radius-lg;
+  background: $black;
+  box-shadow: $shadow-md;
+  border: 2px solid $black;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $court-blue-dark, $court-blue-light);
+  }
+}
+
+.landing__cta-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem 1.75rem;
+}
+
+.landing__cta-copy {
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 700;
+    color: $line-white;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1rem;
+    color: $text-on-dark;
+    line-height: 1.5;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+
+@media (min-width: 640px) {
+  .landing__steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .landing__carousel ::ng-deep .tamanio-imagen {
+    height: 380px;
+  }
+}
+
+@media (min-width: 768px) {
+  .landing {
+    padding: 1.5rem 1.5rem 4rem;
+  }
+
+  .landing__hero-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    padding: 3.5rem 2.5rem;
+  }
+
+  .landing__hero-visual {
+    display: block;
+  }
+
+  .landing__cta-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 2.5rem;
+  }
+
+  .landing__carousel ::ng-deep .tamanio-imagen {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing__carousel ::ng-deep .tamanio-imagen {
+    height: 520px;
+  }
+}
+
+@media (max-width: 767px) {
+  .landing__actions {
+    flex-direction: column;
+
+    .landing__btn {
+      width: 100%;
+    }
+  }
+
+  .landing__carousel ::ng-deep {
+    .carousel-caption {
+      display: block !important;
+      padding: 1.25rem 1rem 0.75rem;
+
+      h2 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn {
+        font-size: 0.875rem;
+        padding: 0.35rem 0.85rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 374px) {
+  .landing__hero-inner {
+    padding: 1.75rem 1.25rem;
+  }
+}

@@ -1,0 +1,9 @@
+@if (routerLink) {
+  <a [routerLink]="routerLink" [ngClass]="classes" [attr.aria-disabled]="disabled ? true : null">
+    <ng-content />
+  </a>
+} @else {
+  <button [type]="type" [ngClass]="classes" [disabled]="disabled">
+    <ng-content />
+  </button>
+}

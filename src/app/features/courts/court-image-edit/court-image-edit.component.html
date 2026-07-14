@@ -1,0 +1,24 @@
+<app-ui-panel title="Editar imagen" [wide]="true">
+    <div class="form-group">
+      <label for="courtImage">Seleccionar imagen</label>
+      <input type="file" class="form-control" id="courtImage" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+    <div class="form-actions">
+      <app-ui-button
+        variant="success"
+        [fullWidth]="true"
+        [disabled]="!selectedFile || isSubmitting"
+        (click)="saveImage()"
+      >
+        {{ messageButton }}
+      </app-ui-button>
+      <app-ui-button
+        variant="danger"
+        [fullWidth]="true"
+        [disabled]="isSubmitting"
+        (click)="onCancelEdit()"
+      >
+        Cancelar
+      </app-ui-button>
+    </div>
+  </app-ui-panel>

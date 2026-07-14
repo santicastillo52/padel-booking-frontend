@@ -1,0 +1,59 @@
+<section class="ui-page">
+  <app-ui-page-header title="Mis reservas" subtitle="Gestioná el estado de tus turnos" />
+
+  <div class="ui-filter-bar">
+    <app-ui-button size="sm" (click)="setStatus('confirmed')">Confirmadas</app-ui-button>
+    <app-ui-button size="sm" (click)="setStatus('pending')">Pendientes</app-ui-button>
+    <app-ui-button size="sm" (click)="setStatus('completed')">Completadas</app-ui-button>
+    <app-ui-button size="sm" (click)="setStatus('cancelled')">Canceladas</app-ui-button>
+  </div>
+
+  @if (reservations.length === 0) {
+    <app-ui-empty-state icon="bi-calendar-x">
+      No hay reservas {{ statusLabel }} por el momento.
+    </app-ui-empty-state>
+  } @else {
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Cancha</th>
+          <th *ngIf="role === 'client'" scope="col">Club</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Horario</th>
+          <th *ngIf="role === 'admin'" scope="col">Nombre usuario</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (reservation of reservations; track reservation.id) {
+          <tr>
+            <td>{{ reservation.Court.name }}</td>
+            <td *ngIf="role === 'client'">{{ reservation.Court.Club.name }}</td>
+            <td>{{ reservation.date }} - {{ reservation.CourtSchedule.day_of_week | dayName }}</td>
+            <td>{{ reservation.CourtSchedule.start_time }} - {{ reservation.CourtSchedule.end_time }}</td>
+            <td *ngIf="role === 'admin'">{{ reservation.User.name }} {{ reservation.User.last_name }}</td>
+            <td>{{ reservation.status | status }}</td>
+            <td class="reservation-actions">
+              @if (role === 'admin' && reservation.status === 'pending') {
+                <app-ui-button size="sm" variant="success" (click)="changeStatusReservation(reservation.id, 'confirmed')">
+                  Confirmar
+                </app-ui-button>
+              }
+              @if (reservation.status !== 'cancelled' && reservation.status !== 'completed') {
+                <app-ui-button size="sm" variant="danger" (click)="changeStatusReservation(reservation.id, 'cancelled')">
+                  Cancelar
+                </app-ui-button>
+              }
+              @if (role === 'admin' && reservation.status === 'completed') {
+                <app-ui-button size="sm" variant="danger" (click)="deleteReservation({id: reservation.id, courtScheduleId: reservation.CourtSchedule.id})">
+                  Eliminar
+                </app-ui-button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

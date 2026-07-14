@@ -1,0 +1,22 @@
+<section class="ui-page">
+  <div class="ui-grid-cards">
+    @for(club of clubs; track club){
+      <app-ui-card
+        [title]="club.name"
+        [clickable]="true"
+        (cardClick)="getClub(club.id)"
+      >
+        <div card-media>
+          @if(club.Images && club.Images.length > 0){
+            <img [src]="club.Images[0].url" [alt]="'Imagen de ' + club.name" />
+          } @else {
+            <img src="assets/files/club1.jpg" [alt]="'Imagen de ' + club.name" />
+          }
+        </div>
+        <p><strong>Teléfono:</strong> {{ club.phone }}</p>
+        <p><strong>Ubicación:</strong> {{ club.address }}</p>
+        <app-ui-badge variant="blue">{{ club.Courts.length }} canchas</app-ui-badge>
+      </app-ui-card>
+    }
+  </div>
+</section>

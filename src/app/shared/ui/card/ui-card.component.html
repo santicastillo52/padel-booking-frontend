@@ -1,0 +1,22 @@
+<article
+  class="ui-card"
+  [class.ui-card--hoverable]="hoverable"
+  [class.ui-card--clickable]="clickable"
+  (click)="onClick()"
+  (keydown.enter)="onClick()"
+  [attr.tabindex]="clickable ? 0 : null"
+  [attr.role]="clickable ? 'button' : null"
+>
+  <div class="ui-card__media">
+    <ng-content select="[card-media]" />
+  </div>
+  <div class="ui-card__body">
+    @if (title) {
+      <h3 class="ui-card__title">{{ title }}</h3>
+    }
+    <ng-content />
+  </div>
+  <div class="ui-card__footer">
+    <ng-content select="[card-footer]" />
+  </div>
+</article>

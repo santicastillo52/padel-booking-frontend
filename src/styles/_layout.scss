@@ -1,0 +1,103 @@
+@use 'tokens' as *;
+
+.ui-page {
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+  box-sizing: border-box;
+}
+
+.ui-page--centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.ui-page-header {
+  margin-bottom: 1.75rem;
+  text-align: center;
+
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    margin: 0;
+    color: $text-muted;
+    font-size: 1.05rem;
+  }
+}
+
+.ui-panel {
+  width: 100%;
+  max-width: $max-width-narrow;
+  padding: 2rem 1.75rem;
+  background: $surface;
+  border: 2px solid $black;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+
+  &__title {
+    margin: 0 0 0.35rem;
+    text-align: center;
+    font-size: clamp(1.35rem, 3vw, 1.65rem);
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    margin: 0 0 1.5rem;
+    text-align: center;
+    color: $text-muted;
+    font-size: 0.95rem;
+  }
+}
+
+.ui-panel--wide {
+  max-width: $max-width-page;
+}
+
+.ui-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ui-separator {
+  border: none;
+  border-top: 2px solid rgba(17, 17, 17, 0.1);
+  margin: 1.5rem 0;
+}
+
+.ui-collapse-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: $line-white;
+  background: $black;
+  border: none;
+  border-left: 4px solid $court-blue;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    background: $black-soft;
+    border-left-color: $court-blue-light;
+  }
+}
+
+@media (min-width: 768px) {
+  .ui-page {
+    padding: 1.5rem 1.5rem 3rem;
+  }
+}

@@ -1,0 +1,37 @@
+<section class="schedules-list">
+  <div class="ui-filter-bar">
+    @for(dayItem of days; track dayItem){
+      <app-ui-button size="sm" [variant]="day === dayItem ? 'primary' : 'secondary'" (click)="selectDay(dayItem)">
+        {{ dayItem | dayName }}
+      </app-ui-button>
+    }
+  </div>
+  <div class="schedules-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Día</th>
+          <th scope="col">Inicio</th>
+          <th scope="col">Fin</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(schedule of courtSchedules; track schedule){
+          @if(schedule.day_of_week === day){
+            <tr>
+              <td>{{ schedule.day_of_week | dayName}}</td>
+              <td>{{ schedule.start_time }}</td>
+              <td>{{ schedule.end_time }}</td>
+              <td>
+                <app-ui-button size="sm" variant="danger" (click)="deleteScheduleFromDB(schedule.id)">
+                  Eliminar
+                </app-ui-button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+@use '../../../../styles/tokens' as *;
+
+.club-detail-page {
+  .club-detail-card {
+    display: block;
+    margin: 0 auto 2rem;
+    max-width: 900px;
+
+    // La media del card global usa height fija + object-fit: cover (recorta).
+    // En el detalle del club la imagen debe verse completa.
+    ::ng-deep .ui-card__media {
+      height: auto;
+      max-height: none;
+      background: $bg-page;
+
+      img {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        display: block;
+      }
+    }
+  }
+
+  .ui-social-links {
+    margin-top: 1rem;
+  }
+}
