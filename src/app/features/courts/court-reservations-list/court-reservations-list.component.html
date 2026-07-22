@@ -34,21 +34,27 @@
             <td>{{ reservation.CourtSchedule.start_time }} - {{ reservation.CourtSchedule.end_time }}</td>
             <td *ngIf="role === 'admin'">{{ reservation.User.name }} {{ reservation.User.last_name }}</td>
             <td>{{ reservation.status | status }}</td>
-            <td class="reservation-actions">
-              @if (role === 'admin' && reservation.status === 'pending') {
-                <app-ui-button size="sm" variant="success" (click)="changeStatusReservation(reservation.id, 'confirmed')">
-                  Confirmar
-                </app-ui-button>
-              }
-              @if (reservation.status !== 'cancelled' && reservation.status !== 'completed') {
-                <app-ui-button size="sm" variant="danger" (click)="changeStatusReservation(reservation.id, 'cancelled')">
-                  Cancelar
-                </app-ui-button>
-              }
-              @if (role === 'admin' && reservation.status === 'completed') {
-                <app-ui-button size="sm" variant="danger" (click)="deleteReservation({id: reservation.id, courtScheduleId: reservation.CourtSchedule.id})">
-                  Eliminar
-                </app-ui-button>
+            <td>
+              @if (hasActions(reservation)) {
+                <div class="reservation-actions">
+                  @if (role === 'admin' && reservation.status === 'pending') {
+                    <app-ui-button size="sm" variant="success" (click)="changeStatusReservation(reservation.id, 'confirmed')">
+                      Confirmar
+                    </app-ui-button>
+                  }
+                  @if (reservation.status !== 'cancelled' && reservation.status !== 'completed') {
+                    <app-ui-button size="sm" variant="danger" (click)="changeStatusReservation(reservation.id, 'cancelled')">
+                      Cancelar
+                    </app-ui-button>
+                  }
+                  @if (role === 'admin' && reservation.status === 'completed') {
+                    <app-ui-button size="sm" variant="danger" (click)="deleteReservation({id: reservation.id, courtScheduleId: reservation.CourtSchedule.id})">
+                      Eliminar
+                    </app-ui-button>
+                  }
+                </div>
+              } @else {
+                <span class="text-muted">—</span>
               }
             </td>
           </tr>
