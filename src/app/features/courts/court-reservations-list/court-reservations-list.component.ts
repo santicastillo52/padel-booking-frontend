@@ -37,6 +37,13 @@ export class CourtReservationsListComponent {
     return labels[this.status] ?? '';
   }
 
+  hasActions(reservation: Booking): boolean {
+    const canConfirm = this.role === 'admin' && reservation.status === 'pending';
+    const canCancel = reservation.status !== 'cancelled' && reservation.status !== 'completed';
+    const canDelete = this.role === 'admin' && reservation.status === 'completed';
+    return canConfirm || canCancel || canDelete;
+  }
+
   ngOnInit(): void{
     this.role = this.authService.getUser().role;
     this.getReservations()

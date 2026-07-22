@@ -4,6 +4,12 @@ Aplicación web para reservar canchas de pádel. Permite a jugadores buscar turn
 
 Frontend en **Angular 18**, conectado a una API REST.
 
+### Demo en vivo
+
+**[https://padel-booking-frontend-navy.vercel.app/](https://padel-booking-frontend-navy.vercel.app/)**
+
+> El backend corre en Render (plan free): la primera request puede tardar unos segundos si el servicio estaba dormido.
+
 ---
 
 ## Stack tecnológico
